@@ -1,0 +1,176 @@
+{% extends 'admin_nav.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+</head>
+<body>
+{% if error == "no" %}
+     <script>
+	   alert('Record Save Successfully');
+       window.location=('{% url 'view_patient' %}');
+     </script>
+{% endif %}
+
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
+
+<br><br><br><br>
+<div class="container card shadow m-5">
+		<div class="card-body">
+			<h5 class="p-2" style="border-bottom: 2px solid orange">Add Patient</h5>
+             <br>
+			<div class="container-fluid">
+				<form method="post">
+                    {% csrf_token %}
+					<div class="form-row">
+                        <div class="col-12 col-sm-6">
+<!--                            <input type="text" name="doctor_name" class="form-control" placeholder="Enter Doctor name" style="height: 55px;"required>-->
+                                 <select class="form-control" name="doctor_name" style="height: 55px;">
+                                        <option>Select Doctor</option>
+                                        {% for i in doctor  %}
+                                        <option value="{{i}}">{{i}}</option>
+                                        {% endfor %}
+                                 </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+<!--                                    <input type="text" name="doctor_specialize" class="form-control" placeholder="Enter Doctor Specialization" style="height: 55px;" required>-->
+                                         <select class="form-control" name="doctor_specialize" style="height: 55px;">
+                                         <option selected>Select  a specialization</option>
+                                         {% for j in specialize %}
+                                         <option value="{{j}}">{{j}}</option>
+                                         {% endfor %}
+                                    </select>
+                        </div>
+
+						<div class="col-12 col-sm-6">
+                                    <input type="text"  class="form-control" name="f_name" placeholder="Your First Name" style="height: 55px;">
+						</div>
+						<div class="col-12 col-sm-6">
+                                    <input type="text"  class="form-control" name="l_name" placeholder="Your Last Name" style="height: 55px;">
+						</div>
+						<div class="col-12 col-sm-6">
+                                    <input type="email" class="form-control" name="email" placeholder="Your Email" style="height: 55px;">
+						</div>
+						<div class="col-12 col-sm-6">
+                                    <input type="tel" class="form-control" name="phone" placeholder="Your Ten digit  Phone No" style="height: 55px;">
+						</div>
+						<div class="col-12 col-sm-6">
+
+                                        <div class="date" id="date3" data-target-input="nearest">
+                                            <input type="date" class="form-control datetimepicker-input" name="dob"
+                                            placeholder="Date of birth" data-toggle="datetimepicker" style="height: 55px;">
+<!--                                            data-target="#date1" -->
+                                       </div>
+                               </div>
+                                <div class="col-12 col-sm-6">
+                                    <select class="form-control" name="blood_type" style="height: 55px;">
+                                        <option >Your Blood Type</option>
+
+                                        <option value="A +ve">A +ve</option>
+                                        <option value="B +ve">B +ve</option>
+                                        <option value="AB +ve">AB +ve</option>
+                                        <option value="O +ve">O +ve</option>
+                                        <option value="A -ve">A -ve</option>
+                                        <option value="B -ve">B -ve</option>
+                                        <option value="O -ve">O -ve</option>
+
+
+                                    </select>
+<!--                                    <input type="text" class="form-control bg-light border-0" placeholder="Your Blood Type" style="height: 55px;">-->
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="text"  class="form-control" name="address" placeholder="Your Address" style="height: 55px;">
+                                </div>
+						<div class="col-12 col-sm-6">
+                                        <select class="form-control" name="gender" style="height: 55px;">
+                                        <option >Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+						</div>
+						<div class="col-12 col-sm-6">
+                                    <input type="text" class="form-control" name="vaccine" placeholder="" value="Polio -IPV Vaccines" readonly="" style="height: 55px;">
+						</div>
+						<div class="col-12 col-sm-6">
+                                        <select class="form-control" name="polio" style="height: 55px;">
+                                            <option selected>Previous Polio Dose</option>
+                                            <option value="IPV(2 Months)">IPV(2 Months)</option>
+                                            <option value="IPV(4 Months)">IPV(4 Months)</option>
+                                            <option value="IPV(6 Months)">IPV(6 Months)</option>
+                                            <option value="IPV(12 Months)">IPV(12 Months)</option>
+                                            <option value="IPV(15Months)">IPV(15Months)</option>
+                                            <option value="IPV(18 Months)">IPV(18 Months)</option>
+                                            <option value="IPV(4-6 years)">IPV(4-6 years)</option>
+
+                                    </select>
+						</div>
+						<div class="col-12 col-sm-6">
+                                    <div class="date" id="date1" data-target-input="nearest">
+                                        <input type="text"
+                                            class="form-control datetimepicker-input" name="apt_date"
+                                            placeholder="Appointment Date(YYYY-MM-DD)"  data-toggle="datetimepicker" style="height: 55px;">
+                                    </div>
+<!--                                    data-target="#date2"-->
+						</div>
+						<div class="col-12 col-sm-6">
+                                    <div class="time" id="time1" data-target-input="nearest">
+                                        <input type="text"
+                                            class="form-control datetimepicker-input" name="apt_time"
+                                            placeholder="Appointment Time(HH-MM-SS)"  data-toggle="datetimepicker" style="height: 55px;">
+                                    </div>
+						</div>
+
+
+
+
+
+<!--						<div class="col-sm-12">-->
+<!--							<div class="form-group">-->
+<!--								<label>Patient Name</label>-->
+<!--								<input type="text" name="pat_name" class="form-control" placeholder="Enter Patient Name" required>-->
+<!--							</div>-->
+<!--						</div>-->
+
+<!--                    	<div class="col-sm-12">-->
+<!--							<div class="form-group">-->
+<!--								<label>Mobile Number</label>-->
+<!--								<input type="text" name="pat_mobile" class="form-control" placeholder="Enter Ten Digit Mobile Number" required>-->
+<!--							</div>-->
+<!--						</div>-->
+
+<!--						<div class="col-sm-12">-->
+<!--							<div class="form-group">-->
+<!--								<label>Gender</label>-->
+<!--								<input type="radio" name="gender" value="Male"> Male-->
+<!--								<input type="radio" name="gender" value="Female"> Female-->
+<!--							</div>-->
+<!--						</div>-->
+
+<!--						<div class="col-sm-12">-->
+<!--							<div class="form-group">-->
+<!--								<label>Address</label>-->
+<!--                                <textarea name="address" class="form-control" placeholder="Enter Patient Address" required></textarea>-->
+<!--							</div>-->
+<!--						</div>-->
+
+
+<!--                      </div>-->
+					<hr>
+					<input type="submit" value="Submit" class="btn btn-primary">
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+{% endblock content %}

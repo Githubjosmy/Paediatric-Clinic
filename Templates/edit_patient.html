@@ -1,0 +1,150 @@
+{% extends 'admin_nav.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+<body>
+{% if error == "no" %}
+     <script>
+	   alert('Patient Record has been Updated');
+       window.location=('{% url 'view_patient' %}');
+     </script>
+{% endif %}
+
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
+
+<br><br><br><br>
+<div class="container card shadow m-5">
+		<div class="card-body">
+			<h5 class="p-2" style="border-bottom: 2px solid orange">Edit Patient</h5>
+             <br>
+			<div class="container-fluid">
+				<form action="" method="post">
+                    {% csrf_token %}
+					<div class="form-row">
+
+						<div class="col-sm-12">
+                            <div class="form-group">
+								<label>Doctor Name</label>
+                                 <input type="text" name="doctor_name" class="form-control" value="{{patient.doctor_name}}" placeholder="Enter Doctor name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+								<label>Doctor Specialization</label>
+                                <input type="text" name="doctor_specialize" value="{{patient.spec}}" class="form-control" placeholder="Enter Doctor Specialization" required>
+                            </div>
+                        </div>
+
+						<div class="col-sm-12">
+                            <div class="form-group">
+								<label>Patient First Name</label>
+                                    <input type="text" name="f_name" value="{{patient.first_name}}" class="form-control" placeholder="Your First Name" style="height: 55px;" required>
+						    </div>
+                        </div>
+						<div class="col-sm-12">
+                             <div class="form-group">
+								<label>Patient Last Name</label>
+                                    <input type="text" name="l_name"  class="form-control" value="{{patient.Last_name}}" placeholder="Your Last Name" style="height: 55px;" required>
+						     </div>
+                        </div>
+						<div class="col-sm-12">
+                             <div class="form-group">
+								<label>Patient Email</label>
+                                    <input type="email" name="email" class="form-control" value="{{patient.Email}}"  placeholder="Your Email" style="height: 55px;" required>
+						     </div>
+                        </div>
+						<div class="col-sm-12">
+                             <div class="form-group">
+								<label>Patient Contact Number</label>
+                                    <input type="tel" name="phone" class="form-control" value="{{patient.Phone_no }}"  placeholder="Your Ten digit  Phone No" style="height: 55px;" required>
+						     </div>
+                        </div>
+						<div class="col-sm-12">
+                             <div class="form-group">
+								<label>Patient Date of Birth</label>
+
+                                        <div class="date">
+                                                     <input type="text" class="form-control datetimepicker-input"  value ="{{patient.DOB}}" name="dob"
+                                                     data-toggle="datetimepicker" readonly="" placeholder="Date of birth" style="height: 55px;" required>
+                                       </div>
+                             </div>
+                        </div>
+<!--                        <div class="col-12 col-sm-6">-->
+<!--                                    <input type="text" class="form-control bg-light border-0" value="{{patient.BLOOD_TYPE }}" name="blood" placeholder="Your Blood type" style="height: 55px;" required>-->
+<!--						</div>-->
+<!--                        <div class="col-12 col-sm-6">-->
+<!--                             <select class="form-select bg-light border-0" name="polio" style="height: 55px;">-->
+<!--                                            <option>Previous Polio Dose</option>-->
+<!--                                 {% for i in k %}-->
+
+<!--                                 <option value="{{i}}" {% if i == patient.Prev_dose %} selected {% endif %}>{{i}}</option>-->
+<!--                                 {% endfor %}-->
+<!--                             </select>-->
+
+
+<!--                        </div>-->
+
+
+<!--                        <div class="col-12 col-sm-6">-->
+<!--                                    <input type="text"  class="form-control bg-light border-0" value="{{patient.Address}}" name="address" placeholder="Your Address" style="height: 55px;" required>-->
+<!--                        </div>-->
+						<div class="col-sm-12">
+                            <div class="form-group">
+								<label>Patient Gender</label>
+                                        <select class="form-control"  name="gender" style="height: 55px;" required>
+                                            <option value="Male">Male</option>
+                                            {% if patient.Gender == "Female" %}
+                                            <option value="Female" selected>Female</option>
+                                            {% else %}
+                                            <option value="Female" >Female</option>
+                                            {% endif %}
+
+                                            {% if patient.Gender == "Others" %}
+                                            <option value="Others" selected>Others</option>
+                                            {% else %}
+                                            <option value="Others" >Others</option>
+                                            {% endif %}
+
+                                        </select>
+                            </div>
+						</div>
+<!--						<div class="col-12 col-sm-6">-->
+<!--                                    <input type="text" class="form-control bg-light border-0" name="vaccine" placeholder="Polio-IPV Vaccines" value="{{patient.Polio}}" style="height: 55px;">-->
+<!--						</div>-->
+
+<!--						<div class="col-12 col-sm-6">-->
+<!--                                    <div class="date" id="date1" data-target-input="nearest">-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control bg-light border-0 datetimepicker-input" name="apt_date" value="{{patient.Appt_date}}"-->
+<!--                                            placeholder="Appintment Date(YYYY-MM-DD)" data-toggle="datetimepicker" style="height: 55px;" required>-->
+<!--                                    </div>-->
+<!--&lt;!&ndash;                                    data-target="#date2"&ndash;&gt;-->
+<!--						</div>-->
+<!--						<div class="col-12 col-sm-6">-->
+<!--                                    <div class="time" id="time1" data-target-input="nearest">-->
+<!--                                        <input type="date"-->
+<!--                                            class="form-control bg-light border-0 datetimepicker-input" name="apt_time" value="{{patient.Appt_time}}"-->
+<!--                                            placeholder="Appintment Time(HH-MM-SS)"  data-toggle="datetimepicker" style="height: 55px;" required>-->
+<!--                                    </div>-->
+<!--						</div>-->
+					<hr>
+					<input type="submit" value="Update" class="btn btn-primary">
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+{% endblock content %}
